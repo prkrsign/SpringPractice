@@ -11,7 +11,7 @@ public class TestController {
 	
 	@GetMapping
 	public String test(Model model) {
-		model.addAttribute("title", "InquiryForm");
+		model.addAttribute("title", "SpringBlog");
 		return "test";
 	}
 	
