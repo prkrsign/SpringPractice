@@ -10,10 +10,10 @@
         <p><a href="#" th:href="@{/post}">投稿する</a></p>
         
         <table>
-            <tr th:each="post : ${postList}" th:object="${post}">
-                <td th:text="*{id}"></td>
-                <td th:text="*{content}"></td>
-                <td th:text="*{title}"></td>
+            <tr th:each="post : ${postList}">
+                <td th:text="${post.id}"></td>
+                <td th:text="${post.title}"></td>
+                <td th:text="${post.content}"></td>
             </tr>
         </table>
     </body>

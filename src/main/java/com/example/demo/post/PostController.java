@@ -9,17 +9,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.entity.Post;
-import com.example.demo.repository.PostRepository;
+import com.example.demo.service.PostService;
 
 @Controller
 public class PostController {
 	
+    private final PostService postService;
+
     @Autowired
-    PostRepository postRepository;
+    public PostController(PostService postService) {
+        this.postService = postService;
+    }
+	
     
     @GetMapping
     public String index(Model model) {
-        List<Post> postList=postRepository.findAll();
+    	List<Post> postList = postService.findAll();
         model.addAttribute("title", "Spring Practice");
         model.addAttribute("postList", postList);
         return "post/index";
