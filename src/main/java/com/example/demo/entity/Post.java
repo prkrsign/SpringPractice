@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name="posts")
 public class Post {
@@ -50,6 +52,7 @@ public class Post {
 		this.content = content;
 	}
 	
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	public LocalDateTime getCreated() {
 		return created;
 	}

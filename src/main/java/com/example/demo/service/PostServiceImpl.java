@@ -25,8 +25,7 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	public void insert(Post post) {
-		// TODO 自動生成されたメソッド・スタブ
-
+		dao.insert(post);
 	}
 
 	@Override

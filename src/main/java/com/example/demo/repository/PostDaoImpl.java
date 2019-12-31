@@ -1,11 +1,13 @@
 package com.example.demo.repository;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -42,9 +44,9 @@ public class PostDaoImpl implements PostDao {
 	}
 
 	@Override
-	public void insert(Post post) {
-		// TODO 自動生成されたメソッド・スタブ
-
+	public void insert(Post post) {		
+		jdbcTemplate.update("INSERT INTO posts(title, content, created) VALUES(?, ?, ?)",
+				post.getTitle(), post.getContent(), post.getCreated() );
 	}
 
 	@Override
