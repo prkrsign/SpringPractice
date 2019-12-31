@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:text="${title}">SpringPractice</title>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <h1>日記を投稿が完了しました。入力内容をご確認ください</h1>
+<!--         <p th:text="${post.title}">仮タイトル</p>
+        <p th:text="${post.content}">仮の詳細文章です</p> -->
+        
+        <p><a href="#" th:href="@{/}">トップページに戻る</a></p>
+    </body>
+</html>
