@@ -12,7 +12,6 @@ import com.example.demo.entity.Post;
 import com.example.demo.repository.PostRepository;
 
 @Controller
-@RequestMapping("/")
 public class PostController {
 	
     @Autowired
@@ -24,5 +23,10 @@ public class PostController {
         model.addAttribute("title", "Spring Practice");
         model.addAttribute("postList", postList);
         return "post/index";
+    }
+    
+    @GetMapping("/post")
+    public String post() {
+        return "post/post";
     }
 }

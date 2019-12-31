@@ -6,6 +6,9 @@
     </head>
     <body>
         <h1 th:text="${title}"></h1>
+        
+        <p><a href="#" th:href="@{/post}">投稿する</a></p>
+        
         <table>
             <tr th:each="post : ${postList}" th:object="${post}">
                 <td th:text="*{id}"></td>
