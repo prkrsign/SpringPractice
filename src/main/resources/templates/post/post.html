@@ -7,15 +7,15 @@
     <body>
         <h1>日記を投稿してください</h1>
         
-　　<form method="post" action="#" th:action="@{/complete}" th:object="${post}">
+　　<form method="post" action="#" th:action="@{/complete}" th:object="${postForm}">
 
 	  <label for="title">タイトル:</label>
 	  <input id="title" name="title" type="text"><br>
-<!-- 	  <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div> -->
+ 	  <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
 	  
 	  <label for="content">詳細　:</label>
 	  <textarea name="content" id="content" rows="3" cols="40"></textarea><br>
-<!-- 	  <div th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div> -->
+	  <div th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
 	  <input type="submit" value="確認ページへ">
 	  
    </form>

@@ -18,7 +18,7 @@ public class PostForm {
 	@NotBlank (message = "必須項目を埋めてください")
 	private String title;
 	
-	@NotNull (message = "必須項目を埋めてください")
+	@NotBlank (message = "必須項目を埋めてください")
 	private String content;
 	
 	public String getTitle() {
