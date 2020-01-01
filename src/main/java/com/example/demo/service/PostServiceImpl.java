@@ -36,8 +36,7 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	public void deleteById(int id) {
-		// TODO 自動生成されたメソッド・スタブ
-
+		dao.deleteById(id);
 	}
 
 	@Override

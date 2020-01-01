@@ -103,6 +103,12 @@ public class PostController {
     	
     }
     
+    @PostMapping("/delete")
+    public String delete(@RequestParam("postId") int postId) {
+    	postService.deleteById(postId);
+    	return "redirect:/";
+    }
+    
 	@PostMapping("/post")
 	public String complete(
 			@Validated PostForm postForm,

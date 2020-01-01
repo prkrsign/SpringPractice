@@ -29,7 +29,12 @@
                   <td th:text="${post.content}"></td>
                   <td th:text="${post.created}"></td>
                   <td><a href="#" th:href="@{/edit/{id} (id=${post.id})}"><button type="button" class="btn btn-primary">編集</button></a></td>
-                  <td><a href="#" th:href="@{/delete/{id} (id=${post.id})}"><button type="button" class="btn btn-danger">削除</button></a></td>
+                  <td>
+                    <form method="POST" th:action="@{/delete}">
+                      <input type="hidden" name="postId" th:value="${post.id}">
+                      <input class="btn btn-danger" type="submit" value="削除">
+                    </form>
+                  </td>
               </tr>
             </tbody>
         </table>
