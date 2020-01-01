@@ -57,8 +57,7 @@ public class PostDaoImpl implements PostDao {
 
 	@Override
 	public int deleteById(int id) {
-		// TODO 自動生成されたメソッド・スタブ
-		return 0;
+		return jdbcTemplate.update("DELETE FROM posts WHERE id = ?", id);
 	}
 
 	@Override
