@@ -11,13 +11,27 @@
         
         <p><a href="#" th:href="@{/form}">投稿する</a></p>
         
-        <table>
-            <tr th:each="post : ${postList}">
-                <td th:text="${post.id}"></td>
-                <td th:text="${post.title}"></td>
-                <td th:text="${post.content}"></td>
-                <td th:text="${post.created}"></td>
-            </tr>
+        <table  class="table">
+        	 <thead>
+    			  <tr>
+      			  	  <th scope="col">ID</th>
+      				  <th scope="col">Title</th>
+      			      <th scope="col">Content</th>
+      				  <th scope="col">Created</th>
+      				  <th scope="col">Edit</th>
+      				  <th scope="col">Delete</th>
+    		      </tr>
+  			 </thead>
+  			 <tbody>
+               <tr th:each="post : ${postList}">
+                  <td th:text="${post.id}"></td>
+                  <td th:text="${post.title}"></td>
+                  <td th:text="${post.content}"></td>
+                  <td th:text="${post.created}"></td>
+                  <td><a href="#" th:href="@{/edit/{id} (id=${post.id})}"><button type="button" class="btn btn-primary">編集</button></a></td>
+                  <td><a href="#" th:href="@{/delete/{id} (id=${post.id})}"><button type="button" class="btn btn-danger">削除</button></a></td>
+              </tr>
+            </tbody>
         </table>
     </body>
 </html>

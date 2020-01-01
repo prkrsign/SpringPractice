@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,14 +31,18 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	public void update(Post post) {
-		// TODO 自動生成されたメソッド・スタブ
-
+		dao.update(post);
 	}
 
 	@Override
 	public void deleteById(int id) {
 		// TODO 自動生成されたメソッド・スタブ
 
+	}
+
+	@Override
+	public Optional<Post> getPost(int id) {
+		return dao.findById(id);
 	}
 
 }
