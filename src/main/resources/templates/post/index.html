@@ -3,17 +3,20 @@
     <head>
         <title th:text="${title}">SpringPractice</title>
         <meta charset="utf-8" />
+        <link href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
     </head>
     <body>
         <h1 th:text="${title}"></h1>
+        <h3 th:if="${complete}" th:text="${complete}" class="text-danger"></h3>
         
-        <p><a href="#" th:href="@{/post}">投稿する</a></p>
+        <p><a href="#" th:href="@{/form}">投稿する</a></p>
         
         <table>
-            <tr th:each="post : ${postList}" th:object="${post}">
-                <td th:text="*{id}"></td>
-                <td th:text="*{content}"></td>
-                <td th:text="*{title}"></td>
+            <tr th:each="post : ${postList}">
+                <td th:text="${post.id}"></td>
+                <td th:text="${post.title}"></td>
+                <td th:text="${post.content}"></td>
+                <td th:text="${post.created}"></td>
             </tr>
         </table>
     </body>
