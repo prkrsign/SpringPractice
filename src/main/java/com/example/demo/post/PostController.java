@@ -1,6 +1,7 @@
 package com.example.demo.post;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -30,6 +32,15 @@ public class PostController {
         post.setContent(postForm.getContent());
         return post;
     }
+    
+    private PostForm makePostForm(Post post) {
+    	
+    	PostForm postForm = new PostForm();
+    	
+    	postForm.setTitle(post.getTitle());
+    	postForm.setContent(post.getContent());
+        return postForm;
+    }
 	
     
     @GetMapping
@@ -43,6 +54,24 @@ public class PostController {
     @GetMapping("/form")
     public String post(PostForm postForm, Model model) {
     	model.addAttribute("title", "Spring Practice");
+        return "post/form";
+    }
+    
+    @GetMapping("/edit/{id}")
+    public String edit(
+    		PostForm postForm, 
+    		@PathVariable int id,
+    		Model model) {
+    	Optional<Post> postOpt =  postService.getPost(id);
+    	Optional<PostForm> postFormOpt = postOpt.map(p -> makePostForm(p));
+    	
+    	if (postFormOpt.isPresent()) {
+    		postForm = postFormOpt.get();
+    	}
+    	
+    	model.addAttribute("title", "Spring Practice 更新用フォーム");
+    	model.addAttribute("edit", "日記の更新ができます");
+        model.addAttribute("postForm", postForm);
         return "post/form";
     }
     

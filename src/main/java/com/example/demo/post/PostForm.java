@@ -3,7 +3,6 @@ package com.example.demo.post;
 import java.time.LocalDateTime;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 public class PostForm {
 	

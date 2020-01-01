@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -58,6 +59,24 @@ public class PostDaoImpl implements PostDao {
 	public int deleteById(int id) {
 		// TODO 自動生成されたメソッド・スタブ
 		return 0;
+	}
+
+	@Override
+	public Optional<Post> findById(int id) {
+		String sql = "SELECT * FROM posts WHERE id = ?";
+		Map<String, Object> result = jdbcTemplate.queryForMap(sql, id);
+		
+		Post post = new Post();
+		
+		int postId = new  Integer((result.get("id")).toString());
+		post.setId(postId);
+		post.setTitle((String)result.get("title"));
+		post.setContent((String)result.get("content"));
+		post.setCreated(((Timestamp) result.get("created")).toLocalDateTime());
+		
+		Optional<Post> postOpt =  Optional.ofNullable(post);
+		
+		return postOpt;
 	}
 
 }
