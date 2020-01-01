@@ -20,6 +20,16 @@ public class PostForm {
 	@NotBlank (message = "必須項目を埋めてください")
 	private String content;
 	
+	public boolean isNewPost;
+	
+	public boolean isNewPost() {
+		return isNewPost;
+	}
+
+	public void setNewPost(boolean isNewPost) {
+		this.isNewPost = isNewPost;
+	}
+
 	public String getTitle() {
 		return title;
 	}

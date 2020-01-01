@@ -51,8 +51,8 @@ public class PostDaoImpl implements PostDao {
 
 	@Override
 	public int update(Post post) {
-		// TODO 自動生成されたメソッド・スタブ
-		return 0;
+		return jdbcTemplate.update("UPDATE posts SET title = ? , content = ? WHERE id = ?",
+				post.getTitle(), post.getContent(), post.getId()  );		
 	}
 
 	@Override
