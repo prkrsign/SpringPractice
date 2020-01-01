@@ -44,9 +44,10 @@ public class PostDaoImpl implements PostDao {
 	}
 
 	@Override
-	public void insert(Post post) {		
+	public void insert(Post post) {	
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		jdbcTemplate.update("INSERT INTO posts(title, content, created) VALUES(?, ?, ?)",
-				post.getTitle(), post.getContent(), post.getCreated() );
+				post.getTitle(), post.getContent(), timestamp  );
 	}
 
 	@Override

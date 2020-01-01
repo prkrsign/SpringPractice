@@ -2,6 +2,7 @@ package com.example.demo.post;
 
 import java.time.LocalDateTime;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class PostForm {
@@ -14,10 +15,10 @@ public class PostForm {
 		this.content = content;
 	}
 	
-	@NotNull(message = "必須項目を埋めてください")
+	@NotBlank (message = "必須項目を埋めてください")
 	private String title;
 	
-	@NotNull(message = "必須項目を埋めてください")
+	@NotNull (message = "必須項目を埋めてください")
 	private String content;
 	
 	public String getTitle() {
