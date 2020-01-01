@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.entity.Post;
 import com.example.demo.service.PostService;
@@ -39,25 +40,27 @@ public class PostController {
         return "post/index";
     }
     
-    @GetMapping("/post")
+    @GetMapping("/form")
     public String post(PostForm postForm, Model model) {
     	model.addAttribute("title", "Spring Practice");
-        return "post/post";
+        return "post/form";
     }
     
-	@PostMapping("/complete")
+	@PostMapping("/post")
 	public String complete(
 			@Validated PostForm postForm,
 	        BindingResult result,
-	        Model model) {
+	        Model model,
+	        RedirectAttributes redirectAttributes) {
 		
 		if (result.hasErrors()) {
 			model.addAttribute("title", "Spring Practice");
-			return "post/post";
+			return "post/form";
 		}
 		Post post = makePost(postForm);
 		postService.insert(post);
 		List<Post> postList = postService.findAll();
+		redirectAttributes.addFlashAttribute("complete", "投稿に成功しました");
 		model.addAttribute("title", "Spring Practice");
 		model.addAttribute("postList", postList);		
 		return "redirect:/";
