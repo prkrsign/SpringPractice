@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:text="${title}">SpringPractice</title>
+        <meta charset="utf-8" />
+        <link href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    </head>
+        <body>
+        <h1 th:text="${title}"></h1>
+        <h3 th:if="${complete}" th:text="${complete}" class="text-danger"></h3>
+         	SignUp
+        </body>
+</html>
