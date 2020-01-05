@@ -4,10 +4,16 @@
         <title th:text="${title}">SpringPractice</title>
         <meta charset="utf-8" />
         <link href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+        <link href="/css/index.css" th:href="@{/css/index.css}" rel="stylesheet">
     </head>
     <body>
         <h1 th:text="${title}"></h1>
         <h3 th:if="${complete}" th:text="${complete}" class="text-danger"></h3>
+        
+        <div class="login-box">
+          <a href="#" th:href="@{/#}">SignUp</a>
+          <a href="#" th:href="@{/login}">SignIn</a>
+        </div>
         
         <p><a href="#" th:href="@{/form}">投稿する</a></p>
         
