@@ -15,6 +15,11 @@
           <a href="#" th:href="@{/login}">SignIn</a>
         </div>
         
+         <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+         	<form th:action="@{/logout}" method="post">
+            	<button class="btn btn-danger " type="submit" value="Sign Out"/>Sign Out</button>
+        	</form>
+        
         <p><a href="#" th:href="@{/form}">投稿する</a></p>
         
         <table  class="table">
