@@ -1,70 +1,169 @@
 package com.example.demo.entity;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Set;
 
-import javax.persistence.Entity;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.PrePersist;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-@Entity
-@Table(name="users")
-public class User {
-	
-	@Id
-	private int id;
-	private String username;
-	private String email;
-	private String password;
-	private LocalDateTime created;
-	
-	public User() {};
-	
-	public User(int id, String username, String email, String password, LocalDateTime created) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.email = email;
-		this.password = password;
-		this.created = created;
-	}
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-	public int getId() {
-		return id;
+public class User implements UserDetails {
+	
+    private static final long serialVersionUID = 1L;
+
+    public enum Authority {ROLE_USER, ROLE_ADMIN}
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    
+    @Column(nullable = false, unique = true)
+    private String username;
+    
+    @Column(nullable = false)
+    private String password;
+    
+    @Column(nullable = false, unique = true)
+    private String mailAddress;
+    
+    @Column(nullable = false)
+    private boolean mailAddressVerified;
+    
+    @Column(nullable = false)
+    private boolean enabled;
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Set<Authority> authorities;
+    
+    // JPA requirement
+    protected User() {}
+    
+    public User(String username, String password, String mailAddress) {
+        this.username = username;
+        this.password = password;
+        this.mailAddress = mailAddress;
+        this.mailAddressVerified = false;
+        this.enabled = true;
+        this.authorities = EnumSet.of(Authority.ROLE_USER);
+    }
+    
+	@PrePersist
+    public void prePersist() {
+        this.createdAt = new Date();
+    }
+
+    public boolean isAdmin() {
+        return this.authorities.contains(Authority.ROLE_ADMIN);
+    }
+    
+    public void setAdmin(boolean isAdmin) {
+        if (isAdmin) {
+            this.authorities.add(Authority.ROLE_ADMIN);
+        } else {
+            this.authorities.remove(Authority.ROLE_ADMIN);
+        }
+    }
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        for (Authority authority : this.authorities) {
+            authorities.add(new SimpleGrantedAuthority(authority.toString()));
+        }
+        return authorities;
 	}
 	
-	public void setId(int id) {
-		this.id = id;
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO 自動生成されたメソッド・スタブ
+		return true;
 	}
 	
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO 自動生成されたメソッド・スタブ
+		return true;
+	}
+	
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO 自動生成されたメソッド・スタブ
+		return true;
+	}
+	
+	@Override
 	public String getUsername() {
+		// TODO 自動生成されたメソッド・スタブ
 		return username;
 	}
 	
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	
-	public String getEmail() {
-		return email;
-	}
-	
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+	@Override
 	public String getPassword() {
-		return password;
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
 	}
 	
-	public void setPassword(String password) {
-		this.password = password;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+	@Override
+	public boolean isEnabled() {
+		// TODO 自動生成されたメソッド・スタブ
+		return this.enabled;
 	}
 	
-	public LocalDateTime getCreated() {
-		return created;
-	}
-	
-	public void setCreated(LocalDateTime created) {
-		this.created = created;
-	}
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+    
+    public Long getId() {
+        return id;
+    }
+
+    public String getMailAddress() {
+        return mailAddress;
+    }
+
+    public void setMailAddress(String mailAddress) {
+        this.mailAddress = mailAddress;
+    }
+
+    public boolean isMailAddressVerified() {
+        return mailAddressVerified;
+    }
+
+    public void setMailAddressVerified(boolean mailAddressVerified) {
+        this.mailAddressVerified = mailAddressVerified;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
 }
